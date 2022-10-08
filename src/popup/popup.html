@@ -11,6 +11,10 @@
         width: 500px;
     }
 
+    #root {
+        height: 100%;
+    }
+
     body {
         height: 500px;
         width: 500px;
@@ -26,6 +30,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        height: 100%;
     }
 
     .warning {
@@ -42,16 +47,18 @@
     }
 
     .warnings-wrapper {
+        height: fit-content;
         display: flex;
         flex-direction: column;
 
-        justify-content: center;
+        align-content: center;
         margin-bottom: 2rem;
         margin-left: 1rem;
     }
 
     .link {
-        font-size: 25px;
+        font-size: 15px;
+
         color: green;
         text-decoration: dotted;
         font-style: italic;
@@ -175,7 +182,7 @@
     <div id="root">
         <h1 class="heading">Varovania pre tento článok:</h1>
         <div id="loading" class="centerer">
-            <div class="lds-default">
+            <div id="spinner" class="lds-default">
                 <div></div>
                 <div></div>
                 <div></div>

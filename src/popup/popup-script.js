@@ -1,6 +1,7 @@
 const rootElement = document.getElementById("root");
 
 const injectedFunction = async () => {
+    // return [['1234test', 'alarming-tone', true]];
     const BACKEND_URL = 'http://localhost:8000';
     const content = new window.Readability(document.cloneNode(true)).parse();
     
@@ -16,7 +17,7 @@ const injectedFunction = async () => {
 
     const response = await flagsRequest.json();
     
-    const authorFlag = document.querySelectorAll('[class*="author"]').length != 0
+    const authorFlag = document.querySelectorAll('[class*="author"]').length != 0;
     response.push(['Článok uvádza autora.', 'has-author', authorFlag]);
 
     return response;    
@@ -60,6 +61,20 @@ window.onload = async () => {
     const warningListDiv = document.createElement("div");
     warningListDiv.classList.add("warnings-wrapper")
 
+    console.log({flagsRaised})
+    if (flagsRaised.length == 0 || !flagsRaised[0].result) {
+        const loadingContainer = document.getElementById('loading');
+        loading.removeChild(document.getElementById('spinner'));
+
+        const errorText = 'Serverová chyba.';
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.innerText = errorText;
+
+        loadingContainer.appendChild(errorDiv);
+        return;
+    }
+
     for (let [flagText, flagId, isRaised] of flagsRaised[0].result) {
         if (isRaised) {
             const icon = chrome.runtime.getURL(icons[flagId]);
@@ -82,12 +97,19 @@ window.onload = async () => {
     }
 
     const link = document.createElement("a")
+    const linkURL = "https://www.omediach.com/hoaxy/15715-odhalit-falosne-spravy-vam-pomozu-tri-jednoduche-otazky";
+
     link.classList.add("link")
-    link.textContent = "Precitajte si viacej o Hoaxoch"
+    link.textContent = "Prečítajte si viac o tom ako rozpoznať hoaxy a dezinformácie"
     link.href = "https://www.omediach.com/hoaxy/15715-odhalit-falosne-spravy-vam-pomozu-tri-jednoduche-otazky"
 
-    warningListDiv.appendChild(link)
+    link.onclick = () => {
+        chrome.tabs.create({url: linkURL})
+    }
+
+    
 
     rootElement.appendChild(warningListDiv);
     rootElement.removeChild(document.getElementById('loading'))
+    rootElement.appendChild(link)
 }
