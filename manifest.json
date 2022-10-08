@@ -1,0 +1,29 @@
+{
+    "name": "dehoaxifikator-3000",
+    "short_name": "dehoaxifikator-3000",
+    "description": "Zobrazí varovania ktoré by mohli naznačovať že článok obsahuje dezinformácie alebo hoaxy",
+    "homepage_url": "http://chrome.google.com/webstore",
+    "version": "0.0.1",
+    "version_name": "0.0.1",
+    "manifest_version": 3,
+    "minimum_chrome_version": "88",
+    "host_permissions": ["http://*/*", "https://*/*"],
+    "permissions": [
+        "tabs",
+        "scripting",
+        "activeTab"
+    ],
+    "icons": {
+        "64": "assets/img/logo64x64.png",
+        "16": "assets/img/logo16x16.png",
+        "32": "assets/img/logo32x32.png"
+    },
+    "background": {
+        "service_worker": "src/index.js"
+    },
+    "action": {
+        "default_icon": "assets/img/logo64x64.png",
+        "default_popup": "src/popup/popup.html",
+        "default_title": "Zobraziť upozornenia"
+    }
+}
