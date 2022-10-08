@@ -22,11 +22,17 @@ const injectedFunction = async () => {
     });
 
     const response = await flagsRequest.json();
+    
+    const authorFlag = document.querySelectorAll('[class*="author"]').length != 0
+    response.push(authorFlag);
+    
     for (let [flagName, isRaised] of response) {
         if (isRaised) {
             console.log(flagName);
         }
     }
+
+    
 }
 
 const queryTab = (options) => {
