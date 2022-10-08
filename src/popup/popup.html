@@ -3,8 +3,40 @@
 <head>
     <meta charset="UTF-8">
 </head>
+<style>
+    html {
+        height: 300px;
+        width: 500px;
+    }
+
+    body {
+        height: 300px;
+        width: 500px;
+    }
+
+
+    .warnings {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .warning {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .warning-icon {
+        height: 16px;
+    }
+
+</style>
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <h1>Varovania pre tento článok:</h1>
+        <h2 id="loading">Načítavam...</h2>
+    </div>
     <script src="popup-script.js"></script>
 </body>
 </html>
