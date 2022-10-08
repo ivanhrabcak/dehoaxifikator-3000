@@ -1,22 +1,6 @@
 const rootElement = document.getElementById("root");
 
 const injectedFunction = async () => {
-    await new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(null)
-        }, 1500);
-    });
-    
-    return [
-        ['Článok uvádza autora.', 'has-author', true], 
-        ['Alarmujúci tón.', 'alarming-tone', true],
-        ['Kontroverzna tema', 'controversial-topic', true],
-        ['Neodkladne konanie', 'immidiate-reaction', true],
-        ['Negativny ton', 'negative-tone', true],
-        ['Za ucelom profitu', 'profit', true],
-        ['Provokativny ton', 'provocative-tone', true],
-        ['Vyzyva k zdielaniu', 'sharing', true],
-    ]
     const BACKEND_URL = 'http://localhost:8000';
     const content = new window.Readability(document.cloneNode(true)).parse();
     
@@ -74,6 +58,7 @@ window.onload = async () => {
 
     const flagsRaised = await chrome.scripting.executeScript({ target: { tabId: activeTab.id }, function: injectedFunction });
     const warningListDiv = document.createElement("div");
+    warningListDiv.classList.add("warnings-wrapper")
 
     for (let [flagText, flagId, isRaised] of flagsRaised[0].result) {
         if (isRaised) {
@@ -95,6 +80,13 @@ window.onload = async () => {
             warningListDiv.appendChild(warningContainer);
         }
     }
+
+    const link = document.createElement("a")
+    link.classList.add("link")
+    link.textContent = "Precitajte si viacej o Hoaxoch"
+    link.href = "https://www.omediach.com/hoaxy/15715-odhalit-falosne-spravy-vam-pomozu-tri-jednoduche-otazky"
+
+    warningListDiv.appendChild(link)
 
     rootElement.appendChild(warningListDiv);
     rootElement.removeChild(document.getElementById('loading'))
